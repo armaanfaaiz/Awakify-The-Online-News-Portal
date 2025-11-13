@@ -1,18 +1,18 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/authOptions";
 import DashboardHeader from "@/components/DashboardHeader";
 import UpgradePrompt from "@/components/UpgradePrompt";
 import { headers } from "next/headers";
 import ArticleCard from "@/components/ArticleCard";
 
-export default async function DashboardPage({ searchParams }: { searchParams?: Record<string, string | string[] | undefined> }) {
+export default async function DashboardPage({ searchParams }: { searchParams?: Promise<Record<string, string | string[] | undefined>> }) {
   const session = await getServerSession(authOptions);
   if (!session) {
     redirect("/login");
   }
   const hdrs = await headers();
-  const sp = searchParams || {};
+  const sp = (searchParams ? await searchParams : {}) as Record<string, string | string[] | undefined>;
   const categoryRaw = (Array.isArray(sp["category"]) ? sp["category"][0] : sp["category"]) || "technology";
   const countryRaw = (Array.isArray(sp["country"]) ? sp["country"][0] : sp["country"]) || "us";
   const pageSizeRaw = (Array.isArray(sp["pageSize"]) ? sp["pageSize"][0] : sp["pageSize"]) || "12";
