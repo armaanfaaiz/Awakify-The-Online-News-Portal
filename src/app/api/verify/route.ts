@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/authOptions";
 import { summarizeWithGemini } from "@/lib/gemini";
 
 const NEWS_EVERYTHING = "https://newsapi.org/v2/everything";
