@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <g fill="none" stroke="none" stroke-width="1" filter="url(#shadow)">
+    <!-- Bulb circle -->
+    <circle cx="32" cy="28" r="14" fill="#FFE600"/>
+    <!-- Filament -->
+    <path d="M28 34c2-2 6-2 8 0" stroke="#222" stroke-width="3" stroke-linecap="round"/>
+    <!-- Base -->
+    <rect x="28" y="40" width="8" height="8" rx="2" fill="#222"/>
+    <!-- Rays -->
+    <path d="M32 8v6M16 14l4 4M48 14l-4 4M10 28h6M54 28h-6" stroke="#FFE600" stroke-width="4" stroke-linecap="round"/>
+  </g>
+</svg>

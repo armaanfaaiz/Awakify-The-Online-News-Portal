@@ -1,8 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ededed;
+}
+
+/* Landing page themed backgrounds */
+.landing-bg {
+  transition: background 300ms ease;
+}
+.landing-bg {
+  background-image: linear-gradient(to bottom, #000000, #0a0a2a, #1a0033);
 }
 
 @theme inline {
@@ -12,15 +20,45 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Subtle warm ambient tint (yellowish) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(60vw 60vh at 20% 10%, rgba(255, 214, 102, 0.06), transparent 60%),
+    radial-gradient(50vw 50vh at 80% 90%, rgba(255, 196, 64, 0.05), transparent 60%);
+}
+
+/* Ensure main content stacks above ambient tint */
+#__next, body > * { position: relative; z-index: 1; }
+
+
+/* Landing hero bulb animation: slide in from right, hold, then fade out */
+@keyframes awakify-bulb {
+  0% {
+    transform: translateX(140%);
+    opacity: 0;
+  }
+  25% {
+    transform: translateX(10%);
+    opacity: 1;
+  }
+  60% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(20%);
+    opacity: 0;
+  }
 }
