@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import Image from "next/image";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -20,10 +22,23 @@ export default function SignupPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, password }),
     });
-    setLoading(false);
+
     if (res.ok) {
-      router.push("/login");
+      const signInRes = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
+
+      setLoading(false);
+
+      if (signInRes?.ok) {
+        router.push("/dashboard");
+      } else {
+        setError("Account created, but automatic sign-in failed. Please try signing in.");
+      }
     } else {
+      setLoading(false);
       const data = await res.json().catch(() => ({}));
       setError(data.error || "Failed to create account");
     }
@@ -33,6 +48,9 @@ export default function SignupPage() {
     <div className="min-h-dvh bg-gradient-to-b from-black via-[#0a0a2a] to-[#1a0033] flex items-center justify-center p-6">
       <div className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl shadow-fuchsia-900/20">
         <div className="p-8">
+          <div className="flex items-center gap-3 mb-2">
+            <Image src="/awakify-logo.svg" alt="Awakify" width={120} height={32} />
+          </div>
           <h1 className="text-2xl font-semibold text-white tracking-tight">Create your account</h1>
           <p className="text-sm text-white/60 mt-1">Join Awakify for personalized, ad-free news</p>
 
