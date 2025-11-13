@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import ThemeToggle from "@/components/ThemeToggle";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 
@@ -28,7 +27,6 @@ export default async function Home() {
                 </Link>
               </>
             )}
-            <ThemeToggle />
           </nav>
         </div>
       </div>
